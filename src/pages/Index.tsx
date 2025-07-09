@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { Upload, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import Dice3D from '@/components/Dice3D';
 
 interface TeamMember {
   name: string;
@@ -220,13 +220,34 @@ const Index = () => {
         )}
       </div>
 
-      {/* 3D Dice animation */}
+      {/* Dice animation */}
       <div className="relative">
         {showDice && (
           <div className={`w-24 h-24 transition-all duration-500 ${
             showDice ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}>
-            <Dice3D isSpinning={isDiceSpinning} />
+            <div className={`w-full h-full transition-transform duration-1500 ${
+              isDiceSpinning ? 'animate-spin' : ''
+            }`}>
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-lg shadow-lg relative transform rotate-12">
+                {/* Dice face with dots */}
+                <div className="absolute inset-2 grid grid-cols-3 gap-1">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-2 h-2"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-2 h-2"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-2 h-2"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-2 h-2"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                {/* Dice edges for 3D effect */}
+                <div className="absolute -top-1 -right-1 w-24 h-24 bg-gradient-to-br from-blue-300 to-blue-400 rounded-lg transform rotate-12 -z-10"></div>
+                <div className="absolute top-1 -right-2 w-6 h-24 bg-gradient-to-r from-blue-600 to-blue-700 transform skew-y-12"></div>
+                <div className="absolute -bottom-2 right-1 w-24 h-6 bg-gradient-to-b from-blue-600 to-blue-700 transform skew-x-12"></div>
+              </div>
+            </div>
           </div>
         )}
       </div>
