@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -84,11 +85,56 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'typewriter': {
+					'0%': { 
+						width: '0',
+						opacity: '0'
+					},
+					'1%': {
+						opacity: '1'
+					},
+					'100%': { 
+						width: '100%',
+						opacity: '1'
+					}
+				},
+				'dice-spin': {
+					'0%': { transform: 'rotate(0deg) scale(1)' },
+					'50%': { transform: 'rotate(180deg) scale(1.1)' },
+					'100%': { transform: 'rotate(360deg) scale(1)' }
+				},
+				'team-reveal': {
+					'0%': { 
+						opacity: '0',
+						transform: 'scale(0.3) translateY(20px)'
+					},
+					'60%': {
+						transform: 'scale(1.05) translateY(-5px)'
+					},
+					'100%': { 
+						opacity: '1',
+						transform: 'scale(1) translateY(0)'
+					}
+				},
+				'fade-in-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'typewriter': 'typewriter 2s steps(40) forwards',
+				'dice-spin': 'dice-spin 1.5s ease-in-out',
+				'team-reveal': 'team-reveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
 			}
 		}
 	},
