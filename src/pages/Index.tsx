@@ -102,14 +102,14 @@ const Index = () => {
       setIsDiceSpinning(true);
     }, 800);
 
-    // Stop dice spinning and show team - extended duration
+    // Stop dice spinning and show team
     setTimeout(() => {
       setIsDiceSpinning(false);
       setTimeout(() => {
         setShowTeam(true);
         setTimeout(() => setShowNext(true), 500);
       }, 200);
-    }, 3800); // Extended from 2300ms to 3800ms for longer rolling
+    }, 2300); // 800ms delay + 1500ms spin
   };
 
   // Handle next button click
@@ -220,10 +220,10 @@ const Index = () => {
         )}
       </div>
 
-      {/* Dice animation */}
+      {/* 3D Dice animation */}
       <div className="relative">
         {showDice && (
-          <div className={`transition-all duration-500 ${
+          <div className={`w-24 h-24 transition-all duration-500 ${
             showDice ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}>
             <Dice3D isSpinning={isDiceSpinning} />
