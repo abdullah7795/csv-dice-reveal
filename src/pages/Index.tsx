@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Upload, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -220,10 +221,10 @@ const Index = () => {
         )}
       </div>
 
-      {/* 3D Dice animation */}
+      {/* Dice animation */}
       <div className="relative">
         {showDice && (
-          <div className={`w-24 h-24 transition-all duration-500 ${
+          <div className={`transition-all duration-500 ${
             showDice ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}>
             <Dice3D isSpinning={isDiceSpinning} />
