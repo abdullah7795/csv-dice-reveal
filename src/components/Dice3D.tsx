@@ -1,6 +1,7 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import * THREE from 'three';
 
 interface DiceProps {
   isSpinning: boolean;
@@ -96,7 +97,7 @@ function DiceMesh({ isSpinning }: DiceProps) {
   ];
 
   return (
-    <mesh ref={meshRef} geometry={geometry} material={materials} scale={1.5}>
+    <mesh ref={meshRef} geometry={geometry} material={materials} scale={2.5}>
       <meshPhongMaterial attach="material" />
     </mesh>
   );
@@ -104,7 +105,7 @@ function DiceMesh({ isSpinning }: DiceProps) {
 
 export default function Dice3D({ isSpinning }: DiceProps) {
   return (
-    <div className="w-24 h-24">
+    <div className="w-32 h-32">
       <Canvas camera={{ position: [2, 2, 3], fov: 50 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1} />

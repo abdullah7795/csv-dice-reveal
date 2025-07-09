@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Upload, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -103,14 +102,14 @@ const Index = () => {
       setIsDiceSpinning(true);
     }, 800);
 
-    // Stop dice spinning and show team
+    // Stop dice spinning and show team - extended duration
     setTimeout(() => {
       setIsDiceSpinning(false);
       setTimeout(() => {
         setShowTeam(true);
         setTimeout(() => setShowNext(true), 500);
       }, 200);
-    }, 2300); // 800ms delay + 1500ms spin
+    }, 3800); // Extended from 2300ms to 3800ms for longer rolling
   };
 
   // Handle next button click
