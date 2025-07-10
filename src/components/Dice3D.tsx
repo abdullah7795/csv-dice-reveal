@@ -14,11 +14,12 @@ function DiceMesh({ isSpinning }: DiceProps) {
 
   useEffect(() => {
     if (isSpinning) {
-      // Random target rotation for spinning effect
+      // Random target rotation for spinning effect - ensure it lands on proper face
+      const faces = [0, Math.PI/2, Math.PI, Math.PI*1.5]; // 90-degree increments for proper faces
       targetRotation.current = {
-        x: Math.PI * 2 * (1 + Math.random()),
-        y: Math.PI * 2 * (1 + Math.random()),
-        z: Math.PI * 2 * (1 + Math.random())
+        x: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random()),
+        y: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random()),
+        z: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random())
       };
     }
   }, [isSpinning]);
@@ -97,7 +98,7 @@ function DiceMesh({ isSpinning }: DiceProps) {
   ];
 
   return (
-    <mesh ref={meshRef} geometry={geometry} material={materials} scale={2.5}>
+    <mesh ref={meshRef} geometry={geometry} material={materials} scale={3.2}>
       <meshPhongMaterial attach="material" />
     </mesh>
   );
