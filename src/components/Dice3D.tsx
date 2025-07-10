@@ -14,12 +14,24 @@ function DiceMesh({ isSpinning }: DiceProps) {
 
   useEffect(() => {
     if (isSpinning) {
-      // Random target rotation for spinning effect - ensure it lands on proper face
-      const faces = [0, Math.PI/2, Math.PI, Math.PI*1.5]; // 90-degree increments for proper faces
+      // Define exact rotations for each dice face (1-6)
+      const faceRotations = [
+        { x: 0, y: 0, z: 0 },                    // Face 1
+        { x: 0, y: Math.PI, z: 0 },              // Face 6 (opposite)
+        { x: 0, y: Math.PI/2, z: 0 },            // Face 3
+        { x: 0, y: -Math.PI/2, z: 0 },           // Face 4 (opposite)
+        { x: -Math.PI/2, y: 0, z: 0 },           // Face 5
+        { x: Math.PI/2, y: 0, z: 0 }             // Face 2 (opposite)
+      ];
+      
+      // Pick a random face and add spinning rotations
+      const selectedFace = faceRotations[Math.floor(Math.random() * faceRotations.length)];
+      const spins = Math.PI * 2 * (2 + Math.random() * 3); // 2-5 full rotations
+      
       targetRotation.current = {
-        x: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random()),
-        y: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random()),
-        z: faces[Math.floor(Math.random() * faces.length)] + Math.PI * 2 * (1 + Math.random())
+        x: selectedFace.x + spins,
+        y: selectedFace.y + spins,
+        z: selectedFace.z + spins
       };
     }
   }, [isSpinning]);
