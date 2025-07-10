@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import * THREE from 'three';
+import * as THREE from 'three';
 
 interface DiceProps {
   isSpinning: boolean;
