@@ -5,10 +5,9 @@ import * as THREE from 'three';
 
 interface DiceProps {
   isSpinning: boolean;
-  targetNumber: number;
 }
 
-function DiceMesh({ isSpinning, targetNumber }: DiceProps) {
+function DiceMesh({ isSpinning }: DiceProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const targetRotation = useRef({ x: 0, y: 0, z: 0 });
   const currentRotation = useRef({ x: 0, y: 0, z: 0 });
@@ -25,9 +24,8 @@ function DiceMesh({ isSpinning, targetNumber }: DiceProps) {
         { x: Math.PI/2, y: 0, z: 0 }             // Face 2 (opposite)
       ];
       
-      // Pick the specific face based on target number and add spinning rotations
-      const faceIndex = Math.max(0, Math.min(5, targetNumber - 1)); // Ensure valid range 0-5
-      const selectedFace = faceRotations[faceIndex];
+      // Pick a random face and add spinning rotations
+      const selectedFace = faceRotations[Math.floor(Math.random() * faceRotations.length)];
       const spins = Math.PI * 2 * (2 + Math.random() * 3); // 2-5 full rotations
       
       targetRotation.current = {
@@ -118,14 +116,14 @@ function DiceMesh({ isSpinning, targetNumber }: DiceProps) {
   );
 }
 
-export default function Dice3D({ isSpinning, targetNumber }: DiceProps) {
+export default function Dice3D({ isSpinning }: DiceProps) {
   return (
     <div className="w-48 h-48">
       <Canvas camera={{ position: [3, 3, 4], fov: 50 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <pointLight position={[-5, 5, 5]} intensity={0.5} />
-        <DiceMesh isSpinning={isSpinning} targetNumber={targetNumber} />
+        <DiceMesh isSpinning={isSpinning} />
       </Canvas>
     </div>
   );

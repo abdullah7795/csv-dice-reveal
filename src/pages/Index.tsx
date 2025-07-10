@@ -247,7 +247,7 @@ const Index = () => {
           <div className={`transition-all duration-500 ${
             showDice ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}>
-            <Dice3D isSpinning={isDiceSpinning} targetNumber={currentMember ? parseInt(currentMember.team_name.match(/\d+/)?.[0] || '1') : 1} />
+            <Dice3D isSpinning={isDiceSpinning} />
           </div>
         )}
       </div>
