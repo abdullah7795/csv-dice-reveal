@@ -16,6 +16,7 @@ const Index = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [showName, setShowName] = useState(false);
+  const [showRollButton, setShowRollButton] = useState(false);
   const [showDice, setShowDice] = useState(false);
   const [isDiceSpinning, setIsDiceSpinning] = useState(false);
   const [showTeam, setShowTeam] = useState(false);
@@ -89,6 +90,7 @@ const Index = () => {
 
     // Reset all states
     setShowName(false);
+    setShowRollButton(false);
     setShowDice(false);
     setShowTeam(false);
     setShowNext(false);
@@ -97,20 +99,24 @@ const Index = () => {
     // Start name animation
     setTimeout(() => setShowName(true), 300);
     
-    // Start dice animation
-    setTimeout(() => {
-      setShowDice(true);
-      setIsDiceSpinning(true);
-    }, 800);
+    // Show roll button after name appears
+    setTimeout(() => setShowRollButton(true), 800);
+  };
 
-    // Stop dice spinning and show team
+  // Handle roll dice button click
+  const handleRollDice = () => {
+    setShowRollButton(false);
+    setShowDice(true);
+    setIsDiceSpinning(true);
+
+    // Stop dice spinning and show team (longer duration)
     setTimeout(() => {
       setIsDiceSpinning(false);
       setTimeout(() => {
         setShowTeam(true);
         setTimeout(() => setShowNext(true), 500);
       }, 200);
-    }, 2300); // 800ms delay + 1500ms spin
+    }, 3500); // Longer rolling duration
   };
 
   // Handle next button click
@@ -218,6 +224,20 @@ const Index = () => {
           }`}>
             {currentMember.name}
           </h1>
+        )}
+      </div>
+
+      {/* Roll Dice Button */}
+      <div className="min-h-[60px] flex items-center">
+        {showRollButton && (
+          <Button
+            onClick={handleRollDice}
+            className={`px-8 py-3 bg-[#4CAF50] hover:bg-[#45a049] text-white font-medium rounded-lg transition-all duration-500 ${
+              showRollButton ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
+            }`}
+          >
+            Roll the Dice
+          </Button>
         )}
       </div>
 
