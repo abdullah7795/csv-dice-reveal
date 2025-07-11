@@ -4,7 +4,7 @@ import { Upload, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import Dice3D from '@/components/Dice3D';
+import SpinningWheel from '@/components/SpinningWheel';
 
 interface TeamMember {
   name: string;
@@ -17,8 +17,8 @@ const Index = () => {
   const [isUploaded, setIsUploaded] = useState(false);
   const [showName, setShowName] = useState(false);
   const [showRollButton, setShowRollButton] = useState(false);
-  const [showDice, setShowDice] = useState(false);
-  const [isDiceSpinning, setIsDiceSpinning] = useState(false);
+  const [showWheel, setShowWheel] = useState(false);
+  const [isWheelSpinning, setIsWheelSpinning] = useState(false);
   const [showTeam, setShowTeam] = useState(false);
   const [showNext, setShowNext] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -91,10 +91,10 @@ const Index = () => {
     // Reset all states
     setShowName(false);
     setShowRollButton(false);
-    setShowDice(false);
+    setShowWheel(false);
     setShowTeam(false);
     setShowNext(false);
-    setIsDiceSpinning(false);
+    setIsWheelSpinning(false);
 
     // Start name animation
     setTimeout(() => setShowName(true), 300);
@@ -103,20 +103,20 @@ const Index = () => {
     setTimeout(() => setShowRollButton(true), 800);
   };
 
-  // Handle roll dice button click
-  const handleRollDice = () => {
+  // Handle roll wheel button click
+  const handleRollWheel = () => {
     setShowRollButton(false);
-    setShowDice(true);
-    setIsDiceSpinning(true);
+    setShowWheel(true);
+    setIsWheelSpinning(true);
 
-    // Stop dice spinning and show team (longer duration)
+    // Stop wheel spinning and show team after 10 seconds
     setTimeout(() => {
-      setIsDiceSpinning(false);
+      setIsWheelSpinning(false);
       setTimeout(() => {
         setShowTeam(true);
         setTimeout(() => setShowNext(true), 500);
       }, 200);
-    }, 3500); // Longer rolling duration
+    }, 10000); // 10 second spin duration
   };
 
   // Handle next button click
@@ -231,23 +231,27 @@ const Index = () => {
       <div className="min-h-[60px] flex items-center">
         {showRollButton && (
           <Button
-            onClick={handleRollDice}
+            onClick={handleRollWheel}
             className={`px-8 py-3 bg-[#4CAF50] hover:bg-[#45a049] text-white font-medium rounded-lg transition-all duration-500 ${
               showRollButton ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
             }`}
           >
-            Roll the Dice
+            Spin the Wheel
           </Button>
         )}
       </div>
 
-      {/* Dice animation */}
+      {/* Spinning Wheel animation */}
       <div className="relative">
-        {showDice && (
+        {showWheel && (
           <div className={`transition-all duration-500 ${
-            showDice ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+            showWheel ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}>
-            <Dice3D isSpinning={isDiceSpinning} />
+            <SpinningWheel 
+              isSpinning={isWheelSpinning} 
+              teams={[...new Set(csvData.map(member => member.team_name))]}
+              selectedTeam={currentMember?.team_name || ''}
+            />
           </div>
         )}
       </div>
