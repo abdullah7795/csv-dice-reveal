@@ -16,12 +16,14 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({ isSpinning, teams, select
       const selectedIndex = teams.indexOf(selectedTeam);
       const segmentAngle = 360 / teams.length;
       
-      // Calculate final angle to land on selected team (pointing at top)
-      const targetAngle = -(selectedIndex * segmentAngle) + (segmentAngle / 2);
+      // Calculate final angle so the selected team ends up under the pointer (at top)
+      // We want the center of the selected segment to be at the top (0 degrees)
+      const segmentCenter = selectedIndex * segmentAngle + (segmentAngle / 2);
+      const targetAngle = -segmentCenter; // Negative because we rotate counterclockwise
       
       // Add multiple full rotations for dramatic effect
       const fullRotations = 10 + Math.random() * 5; // 10-15 full rotations
-      const finalAngle = targetAngle + (fullRotations * 360);
+      const finalAngle = targetAngle - (fullRotations * 360);
 
       // Reset initial position
       wheelRef.current.style.transition = 'none';
@@ -50,9 +52,9 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({ isSpinning, teams, select
 
   return (
     <div className="relative w-80 h-80">
-      {/* Pointer - Fixed triangular pointer at top */}
-      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 border-l-transparent border-r-transparent border-b-red-600 filter drop-shadow-lg"></div>
+      {/* Pointer - Large visible triangular pointer at top */}
+      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="w-0 h-0 border-l-8 border-r-8 border-b-16 border-l-transparent border-r-transparent border-b-red-600 filter drop-shadow-lg"></div>
       </div>
       
       {/* Wheel */}
@@ -94,9 +96,9 @@ const SpinningWheel: React.FC<SpinningWheelProps> = ({ isSpinning, teams, select
                   <div 
                     className="text-white font-bold text-lg px-2 py-1 rounded whitespace-nowrap"
                     style={{
-                      transform: 'translateY(-100px) rotate(0deg)',
+                      transform: 'translateY(-90px) rotate(0deg)',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      backgroundColor: 'rgba(0,0,0,0.3)',
+                      backgroundColor: 'rgba(0,0,0,0.4)',
                     }}
                   >
                     {team}
